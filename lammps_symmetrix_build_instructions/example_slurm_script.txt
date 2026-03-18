@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#SBATCH --job-name=quench_medium_struct
+#SBATCH --time=24:00:00         # Hours:Mins:Secs
+#SBATCH --nodes=2
+#SBATCH --gpus=8
+#SBATCH --ntasks-per-node=4
+#SBATCH --gpus-per-node=4
+#SBATCH --mem=0    # all memory
+
+# slurm script for submitting LAMMPS job on multiple GPUs on Isambard
+
+module load PrgEnv-gnu
+module load gcc-native/13.2
+module load cudatoolkit/24.11_12.6
+module load cray-python
+module load craype-accel-nvidia90
+module load cray-hdf5/1.14.3.5
+module load cray-netcdf/4.9.0.17
+
+export LAMMPS_EXEC="/projects/s5f/fraser/lammps/build/lmp"
+export MPICH_GPU_SUPPORT_ENABLED=1
+export CRAY_ACCEL_TARGET=nvidia90  #not 100% sure this is necessary here
+
+srun bash -c 'echo "Rank $SLURM_PROCID sees GPUs: $CUDA_VISIBLE_DEVICES on $(hostname)"'
+srun --unbuffered bash -c 'echo "Rank $SLURM_PROCID on $SLURMD_NODENAME"'
+
+srun --unbuffered $LAMMPS_EXEC -k on g 4 -sf kk -pk kokkos newton on neigh half -in stretch_input.lammps
