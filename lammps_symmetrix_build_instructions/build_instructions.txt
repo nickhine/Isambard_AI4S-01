@@ -66,4 +66,19 @@ cd build
 make install-python
 cd ../..
 
-Once built, this version of LAMMPS should work on multiple GPUs with symmetrix . Instructions for how to convert a mace model to be compatible with symmetrix as well as LAMMPS input script commands can be found on the github: https://github.com/wcwitt/symmetrix. Please ask me if you have questions!
+Once built, this version of LAMMPS should work on multiple GPUs with symmetrix. 
+
+Now, in order to convert a MACE .model file to the symmetrix .json format, we need to pip install symmetrix and mace.
+
+First, in the *same interactive session + virtual environment*, run:
+pip install mace-torch
+
+Once that has finished, navigate to symmetrix/symmetrix and run
+pip install .
+
+Note that whilst building the wheel this attempts to compile all the Kokkos dependencies again, which means if you have started a clean session for whatever reason you need to re-export all the above environment variables
+and be on a compute node (so kokkos can autodetect the right GPU architecture).
+
+
+Once this is done, instructions for how to convert a mace model to be compatible with symmetrix as well as LAMMPS input script commands can be found on the github: https://github.com/wcwitt/symmetrix. Please ask me if you have questions!
+
