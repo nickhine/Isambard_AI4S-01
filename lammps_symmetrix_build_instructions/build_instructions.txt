@@ -66,6 +66,8 @@ cd build
 make install-python
 cd ../..
 
+If you need dispersion corrections, add:  -D PKG_EXTRA-PAIR=ON   to the above.
+
 Once built, this version of LAMMPS should work on multiple GPUs with symmetrix. 
 
 Now, in order to convert a MACE .model file to the symmetrix .json format, we need to pip install symmetrix and mace.
