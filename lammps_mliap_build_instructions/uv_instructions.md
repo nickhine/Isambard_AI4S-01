@@ -1,6 +1,6 @@
 Here are some instructions for building LAMMPS with the ML-IAP interface when using the uv package manager.
 I have used forks of the current (as of 07/03/2026) lammps and mace git repos, but this should work if mace is installed from pip (though I haven't tried this).
-Please let me know if you have anuy questions!
+Please let me know if you have any questions!
 
 ```
 # Prepare node for building
